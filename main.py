@@ -1,9 +1,9 @@
 #########################################################################
 #Title: PYTHON Project Scenario - Data Analysis
 #Description: This program allows user to analyse.......
-#Name: <...>
-#Group Name: <...>
-#Class: <...>
+#Name: Jacob Teo
+#Group Name: <Amigos>
+#Class: PN2004K
 #Date: <...>
 #Version: <...>
 #########################################################################
@@ -44,7 +44,124 @@ def sortCountry(df):
   #display dataframe (rows and columns)
   print("The following dataframe are read as follows: \n")
   print(df)
+  time_list = ["1980-1990","1990-2000","2000-2010",]
+  region_list = ["1","2","3","4","5","6","7","8"]
+  region_name =""
+  visitor = []
+  countries = []
+  total_visitor = []
+  visitor_dict = {}
+  
 
+  print("Select time period eg.(year-year)","\n","1980-1990","\n","1990-2000","\n","2000-2010","\n",
+  )
+  while True:
+    
+   time_period = input("select a time period:")
+
+   if not time_period in time_list :
+     print("Error!")
+
+   elif time_period in time_list:
+     break
+
+  if time_period == "1980-1990":
+       a=338
+       a=int(a)
+       b=470
+       b=int(b)
+  elif time_period == "1990-2000":
+       a=314
+       a=int(a)
+       b=446
+       b=int(b)
+  elif time_period == "2000-2010":
+       a=266
+       a=int(a)
+       b=398
+       b=int(b)
+
+
+  print("Select a region:",
+  "\n","(1)South East Asia(SEA)",
+  "\n","(2)Asia  Pacific(AP)",
+  "\n","(3)Europe(EU)",)
+  
+
+  while True:
+    
+   region = input("Enter a region. Enter 1 for SEA or 2 for AP etc: ")
+   region = str(region)
+
+   if not region in region_list:
+     print("Error!")
+     
+   elif region in region_list:
+     break
+
+  if region == "1":
+    c = 2
+    c =int(c)
+    d = 9
+    d =int(d)
+    region_name = "South-East Asia"
+
+  elif region == "2":
+    c = 9
+    c =int(c)
+    d = 14
+    d =int(d)
+    region_name = "Asia Pacific"
+
+  elif region == "3":
+    c = 20
+    c =int(c)
+    d = 31
+    d =int(d)
+   
+    region_name = "Europe"
+  
+   
+  
+    
+  df= df.iloc[a:b,c:d]
+  country_idx=d-c
+  df.columns[0:int(country_idx)]
+  
+  for country in df.columns[0:int(country_idx)]:
+    countries.append(country)
+    
+    for visitors in df[country]:
+      visitor.append(visitors)
+  
+  for i in range(0,len(visitor)):
+    if visitor[i]==" na ":
+      visitor[i]=0
+    else:
+      visitor[i]=int(visitor[i])
+    
+    
+
+  number_of_visitors = len(visitor)
+  counter = number_of_visitors/len(countries)
+
+  Index1 = 0
+  Index2= int(counter)
+
+  for i in range(0,(len(countries))):
+    total_visitor.append(sum(visitor[Index1:Index2]))
+    Index1=Index1+(int(counter))
+    Index2=Index2+(int(counter))
+
+  visitor_dict = {  countries[i]: total_visitor[i] for i in range(len(countries))}
+
+  sort_visitor_dict = sorted(visitor_dict.items(), key=lambda x: x[1], reverse=True)
+
+  visitor_dict=dict(sort_visitor_dict)
+
+  df = pd.DataFrame(list(visitor_dict.items()),columns = ['Country','Visitors'])
+
+  print(region_name,"visitors that travelled to Singapore listed in a table below in descending order:","\n",df)
   #display a specific country (Australia) in column #33
   country_label = df.columns[33]
   print("\n\n" + country_label + "was selected.")
@@ -71,6 +188,7 @@ if __name__ == '__main__':
 
   #perform data analysis on specific excel (CSV) file
   DataAnalysis()
+
 
 #########################################################################
 #Main Branch: End of Code
